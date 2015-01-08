@@ -15,6 +15,7 @@ var TodoBox = React.createClass({
   },
   handleTodoSubmit: function(todo) {
     var todos = this.state.data;
+    todo.position = todos.length;
     var newTodos = todos.concat([todo]);
     this.setState({ data: newTodos });
     $.ajax({
@@ -26,6 +27,11 @@ var TodoBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+  reorderTodos: function(todo, newPos) {
+    var todoToMove = this.state.data.splice(todo.position, 1)[0];
+    var reorderedTodos = this.state.data.splice(newPos, 0, todoToMove);
+    this.setState({ data: reorderedTodos });
   },
   getInitialState: function() {
     return { data: [] };
@@ -47,8 +53,9 @@ var TodoBox = React.createClass({
 var TodoList = React.createClass({
   render: function() {
     var todoItems = this.props.data.map(function (todo) {
+      var even = todo.position % 2 !== 0; // I'm naming it "even" based off of list position, NOT list index
       return (
-        <Todo completed={ todo.completed }>
+        <Todo key={ todo._id.$oid } completed={ todo.completed } even={ even } reactId={ todo._id.$oid }>
           { todo.text }
         </Todo>
       );
@@ -83,13 +90,21 @@ var TodoForm = React.createClass({
 });
 
 var Todo = React.createClass({
+  handleChange: function () {
+    console.log(this);
+  },
   render: function() {
+    var classString = "todo";
+    if (this.props.even) {
+      classString += " even";
+    }
     return (
-      <div className="todo">
-        <form>
-          <input type="checkbox" name="completed" />
-          { this.props.children }
+      <div className={ classString }>
+        <form className="checkbox">
+          <input type="checkbox" name="completed" id={ this.props.reactId } onChange={ this.handleChange }/>
+          <label htmlFor={ this.props.reactId }></label>
         </form>
+        { this.props.children }
       </div>
     );
   }

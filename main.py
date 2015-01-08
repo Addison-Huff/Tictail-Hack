@@ -20,7 +20,7 @@ def index():
 
 @app.route('/todos')
 def get_all_todos():
-    results = mongo.db.todos.find()
+    results = mongo.db.todos.find().sort('position')
     return dumps(results)
 
 @app.route('/todo', methods=["POST"])

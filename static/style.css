@@ -1,6 +1,6 @@
 body {
 	background: #f6f5f5;
-	font-family: sans-serif;
+	font-family: Helvetica Neue;
 	line-height: 40px;
 }
 
@@ -22,7 +22,7 @@ h1 {
 	border-bottom: 1px dashed #b7b6b6;
 }
 
-form {
+.todoForm {
 	margin-top: 24px;
 	padding: 0 20px;
 }
@@ -30,6 +30,7 @@ form {
 input[type="text"] {
 	width: 300px;
 	line-height: inherit;
+	font-size: 14px;
 	padding: 0 10px;
 	border: 1px solid #b7b6b6;
 	border-radius: 6px;
@@ -41,12 +42,42 @@ input[type="submit"] {
 	height: 40px;
 	margin-left: 13px;
 	background-color: #ebeae9;
-	border: 1px solid 999999;
+	border: 1px solid #999999;
 	background: -webkit-gradient(linear, center top, center bottom, color-stop(50%, #ebeae9), color-stop(50%, #dcdbda));
 	background: -moz-linear-gradient(top, #ebeae9, #dcdbda);
 	border-radius: 6px;
 }
 
 .todoList {
-	padding: 0 20px;
+}
+
+.checkbox {
+	float: left;
+	margin-top: 10px;
+	margin-right: 12px;
+}
+
+.todo {
+	background: #f4f7fa;
+	height: 50px;
+	padding-left: 24px;
+}
+
+.todo.even {
+	background: #ffffff;
+}
+
+input[type="checkbox"] {
+    display:none;
+}
+
+input[type="checkbox"] + label {
+    display:inline-block;
+    width: 23px;
+	height: 23px;
+    background:url(checkbox.png) left top no-repeat;
+}
+
+input[type="checkbox"]:checked + label {
+    background:url(checkbox.png) right top no-repeat;
 }
