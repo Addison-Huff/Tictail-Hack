@@ -16,13 +16,16 @@ var TodoBox = React.createClass({
   handleTodoSubmit: function(todo) {
     var todos = this.state.data;
     todo.position = todos.length;
-    var newTodos = todos.concat([todo]);
-    this.setState({ data: newTodos });
     $.ajax({
       type: "POST",
       url: "/todo",
       contentType: "application/json; charset=utf-8",
       data: JSON.stringify(todo),
+      success: function(data) {
+        todo._id = { $oid: data };
+        var newTodos = todos.concat([todo]);
+        this.setState({ data: newTodos });
+      }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
