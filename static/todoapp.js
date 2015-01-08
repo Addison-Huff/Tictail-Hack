@@ -5,8 +5,8 @@ var TodoBox = React.createClass({
     return (
       <div className="todoBox">
         <h1>Todos</h1>
-        <TodoList />
         <TodoForm />
+        <TodoList />
       </div>
     );
   }

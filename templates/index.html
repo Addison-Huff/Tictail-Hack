@@ -4,9 +4,10 @@
     <title>Hello React</title>
     <script src="http://fb.me/react-0.12.2.js"></script>
     <script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
-    <div id="content"></div>
+    <div id="content" class="content"></div>
     <script type="text/jsx" src="{{ url_for('static', filename='todoapp.js') }}"></script>
   </body>
 </html>
