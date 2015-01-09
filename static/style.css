@@ -67,6 +67,11 @@ input[type="submit"] {
 	background: #ffffff;
 }
 
+.todo.completed {
+	text-decoration: line-through;
+	color: #999999;
+}
+
 input[type="checkbox"] {
     display:none;
 }

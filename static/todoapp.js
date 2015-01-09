@@ -56,7 +56,7 @@ var TodoBox = React.createClass({
 var TodoList = React.createClass({
   render: function() {
     var todoItems = this.props.data.map(function (todo) {
-      var even = todo.position % 2 !== 0; // I'm naming it "even" based off of list position, NOT list index
+      var even = todo.position % 2 !== 0; // I'm naming it "even" based off of list position, not list index
       return (
         <Todo key={ todo._id.$oid } completed={ todo.completed } even={ even } reactId={ todo._id.$oid }>
           { todo.text }
@@ -93,18 +93,26 @@ var TodoForm = React.createClass({
 });
 
 var Todo = React.createClass({
+  getInitialState: function () {
+    return { completed: this.props.completed };
+  },
   handleChange: function () {
-    console.log(this);
+    var completed = this.state.completed == true ? false: true;
+    this.setState({ completed: completed });
+    $.post("/todo/" + this.props.reactId + "/complete");
   },
   render: function() {
     var classString = "todo";
     if (this.props.even) {
       classString += " even";
     }
+    if (this.state.completed) { 
+      classString += " completed";
+    }
     return (
       <div className={ classString }>
         <form className="checkbox">
-          <input type="checkbox" name="completed" id={ this.props.reactId } onChange={ this.handleChange }/>
+          <input type="checkbox" name="completed" checked={ this.state.completed } id={ this.props.reactId } onChange={ this.handleChange }/>
           <label htmlFor={ this.props.reactId }></label>
         </form>
         { this.props.children }
