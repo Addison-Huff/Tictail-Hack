@@ -53,24 +53,6 @@ var TodoBox = React.createClass({
   }
 });
 
-var TodoList = React.createClass({
-  render: function() {
-    var todoItems = this.props.data.map(function (todo) {
-      var even = todo.position % 2 !== 0; // I'm naming it "even" based off of list position, not list index
-      return (
-        <Todo key={ todo._id.$oid } completed={ todo.completed } even={ even } reactId={ todo._id.$oid }>
-          { todo.text }
-        </Todo>
-      );
-    });
-    return (
-      <div className="todoList">
-        { todoItems }
-      </div>
-    );
-  }
-});
-
 var TodoForm = React.createClass({
   handleSubmit: function(e) {
     e.preventDefault();
@@ -88,6 +70,24 @@ var TodoForm = React.createClass({
         <input type="text" placeholder="What needs to be done?" ref="text" />
         <input type="submit" value="Add Todo" />
       </form>
+    );
+  }
+});
+
+var TodoList = React.createClass({
+  render: function() {
+    var todoItems = this.props.data.map(function (todo) {
+      var even = todo.position % 2 !== 0; // I'm naming it "even" based off of list position, not list index
+      return (
+        <Todo key={ todo._id.$oid } completed={ todo.completed } even={ even } reactId={ todo._id.$oid }>
+          { todo.text }
+        </Todo>
+      );
+    });
+    return (
+      <div className="todoList">
+        { todoItems }
+      </div>
     );
   }
 });
